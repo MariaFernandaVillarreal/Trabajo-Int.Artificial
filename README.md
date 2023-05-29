@@ -1,71 +1,41 @@
-# ProyectoAIcoffe
+# H&M prediction
 ## Miembros
 - Miguel López Vélez cc 1001014378 Bioingeniería
 - Maria Fernanda Villareal Teherán cc 1233345251 Bioingeniería
+
 ## Resumen
-Se intentara predecir la calidad de café arábigo según sus características (altura, origen, variedad, método de proceso etc) y procedencia. A traves de la base de datos obtenida de URL: https://www.kaggle.com/datasets/volpatto/coffee-quality-database-from-cqi?select=arabica_data_cleaned.csv, dicha calidad se mide en aroma, textura,acidez, dulzura etc, para ello se usaran dichas columnas con valores de 1-10. Además de las columnas de origen y altura para tener una mejor estimación, inicialmente se piensa trabajar con los 1312 datos, pero esto se podrá reducir dependiendo de la capacidad computacional para procesarlos. En este caso el modelo se evaluara con varias pruebas, las que incluyen MAE, MSE, y R2 score. Finalmente se enfoca en nuevos caficultores que desean saber que impacto tendrá su café, si las ventas de café no aumentan a base de 10% con las predicciones para la adquisición de nuevos cafés el proyecto no vale la pena. 
+H&M es un grupo con 53 mercados en línea, los cuales al ofrecer una amplia selección de productos es posible que los clientes no encuentran rápidamente lo que buscan y finalmente se decidan por no realizar la compra o tomar una decisión incorrecta la cual lleve a devoluciones, es por eso por lo que se quiere desarrollar recomendaciones de productos basadas en datos de transacciones anteriores, así como en metadatos de cliente y productos. Estos metadatos abarcan desde datos simples como el tipo de prenda y la edad del cliente hasta datos de texto de descripciones de productos y datos de imágenes de prendas. 
+Se intentará predecir qué artículos recomprará cada cliente en el período aleatorio con respecto a los datos totales. Los clientes que no hayan realizado ninguna compra durante ese tiempo quedan excluidos de la puntuación. Para esto se utilizan datos obtenidos de: https://www.kaggle.com/competitions/h-and-m-personalized-fashion-recommendations/data los cuales tienen información de clientes, artículos, imágenes de artículos (estos no se utilizan para simplificar el problema), transacciones, entre otros, teniendo en cuenta que de ser necesario se reducirá la cantidad de datos. 
+En este caso el modelo se evaluará con varias métricas, principalmente usando RMSE pero incluyendo MAE, MSE, neg R2 score y los ratios de MAE y RMSE. Finalmente, si las recomendaciones no aumentan las ventas en un 10% con las predicciones, el modelo no vale la pena.  
 
 ## Instrucciones
 Al ser un dataset de Kagel este necesitara una autentificación, mediante un token que puede ser descargado desde el propio Kagel siguiendo el siguiente tutorial: https://www.kaggle.com/docs/api, específicamente en la parte de "Authentication". Después de esto se corre la parte de código:
+
 ``` python
 from google.colab import files
 
 files.upload()
 ```
-Donde se debe subir dicho token. Cabe resaltar que este proceso solo es necesario para el notebook "01_Exploracion_data".
-
+Esto solo aplica para los notebooks 0.1 y 0.2, en el 0.3 se tiene la opción de descargar el dataset desde google drive o directamente del github.
 ## Videos 
-- [Entrega 2](https://youtu.be/QIGSypTM7jk)
-
+- [Entrega 2](https://youtu.be/QIGSypTM7jk) (Este video es de la entrega anterior y como se tuvo que cambiar el dataset no se vuelve a hacer)
+- [Entrega Final](https://youtu.be/JUZFiu5h6j4)
 ##
 ```
-                              ░░              ░░              ░░                                
-                              ░░              ░░              ░░                                
-                                ░░              ░░              ░░                              
-                                ░░              ░░              ░░                              
-                              ░░              ░░              ░░                                
-                              ░░              ░░              ░░                                
-                            ░░              ░░              ░░                                  
-                            ░░              ░░              ░░                                  
-                              ░░              ░░              ░░                                
-                              ░░              ░░              ░░                                
-                                ░░              ░░              ░░                              
-                                ░░              ░░              ░░                              
-                              ░░              ░░              ░░                                
-                              ░░              ░░              ░░                                
-                                                                                                
-                                    ▓▓██████████████████████                                    
-                            ████████                        ████████                            
-                        ████        ████████████████████████        ████                        
-                      ██░░    ██████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒██▓▓██  ░░░░██                      
-                    ██    ████▒▒▓▓▓▓▓▓▓▓░░░░░░▓▓▓▓░░░░░░▓▓▓▓▒▒▓▓▓▓████    ██                    
-                  ██    ██▓▓▓▓▓▓▓▓▓▓▓▓░░▓▓▓▓▓▓░░░░▓▓▓▓▓▓░░▓▓▓▓▓▓▓▓▒▒▓▓██    ██                  
-                  ██  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░▓▓▓▓▓▓▓▓▓▓▒▒▓▓▓▓  ██  ██▓▓▓▓▓▓██      
-                  ██  ██▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░▓▓▓▓▓▓▓▓▓▓▓▓░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▒▒██  ████          ██    
-                  ██    ██▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░▓▓▓▓▓▓▓▓░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓██    ██              ██  
-                    ██  ░░████▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓████░░  ██░░    ████      ██  
-                    ██        ██████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓██████        ██  ████    ██    ██  
-                    ██              ████████████████████████              ████        ██    ██  
-                    ██                ░░  ░░░░░░░░░░░░░░░░░░              ██          ██    ██  
-                ██████                                                    ██████    ██      ██  
-            ████    ██                                                    ██    ██  ██    ██    
-        ░░██▒▒░░    ▒▒▓▓                                                ▓▓▒▒    ░░██▒▒    ██    
-      ▓▓  ░░          ██                                                ██  ██████      ▓▓      
-    ██                ██                                                ████        ████  ██    
-  ██                  ░░██                                            ██░░░░    ████░░░░  ░░██  
-  ██                ██████                                            ██████████░░░░        ██  
-██                ██▒▒░░▒▒██                                        ██▒▒▒▒██                  ██
-██              ██▒▒██▒▒▒▒██                                        ██▒▒▒▒▒▒██                ██
-██              ██░░▓▓████▒▒▓▓                                    ▓▓▒▒██░░▒▒██                ██
-  ██            ██▒▒██▓▓░░▒▒▒▒██                                ██▒▒░░▒▒████                ██  
-  ██              ██░░██▒▒████▒▒████                        ████▒▒██▒▒██▒▒██                ██  
-    ██            ██▒▒▒▒██▓▓░░▒▒░░▒▒██▓▓▓▓            ▓▓▓▓██▒▒██▒▒░░██▒▒░░██              ██    
-      ██            ██████▒▒▒▒▒▒██████▒▒▒▒████████████▒▒██▒▒▒▒▓▓██▒▒▒▒████░░            ██      
-        ██                ██████░░▒▒██░░▒▒██▒▒▒▒░░▒▒██▒▒▒▒██░░▒▒▒▒████                ██        
-          ████                ██▒▒▒▒▓▓▒▒▒▒██░░▒▒████▒▒░░▒▒▒▒██████                ████          
-          ░░  ████              ████  ████░░████░░░░████████    ░░            ████              
-                  ████                                                    ████                  
-                      ██▓▓▓▓██                                    ▓▓▓▓▓▓██                      
-                              ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓                              
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⠟⠉⠉⠀⠉⠉⠉⠉⠉⠁⠈⠉⠙⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⡿⠀⠀⣤⡄⠀⠀⠀⠀⠀⠀⠀⠀⣤⡀⠀⠸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣥⡀⣼⣿⠇⠀⠀⠀⠀⠀⠀⠀⠀⣿⣷⡀⣠⣽⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⢸⡟⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⢿⣿⣿⣿
+⣿⣿⣿⣿⣿⡏⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⢀⡀⠀⠀⠀⠀⢸⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠇⠀⠀⠀⠀⣿⣷⠀⠀⠀⠀⢸⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⢰⣿⣿⡆⠀⠀⠀⠀⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⣼⣿⣿⣷⠀⠀⠀⠀⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⢠⣿⣿⣿⣿⡄⠀⠀⠀⢹⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⢸⣿⣿⣿⣿⣧⠀⠀⠀⢸⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠁⠀⠀⠀⣾⣿⣿⣿⣿⣿⡀⠀⠀⠘⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
 
 ```
